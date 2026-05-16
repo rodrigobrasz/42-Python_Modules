@@ -2,9 +2,7 @@
 
 from abc import ABC, abstractmethod
 from ex0.creature import Creature
-from ex0 import CreateFactory
 from ex1 import HealCapability, TransformCapability
-import ex2
 
 
 class StrategyError(Exception):
@@ -42,9 +40,9 @@ class AggressiveStrategy(BattleStrategy):
             raise StrategyError("Agressive Error!!!!")
         else:
             print(
-                f"tranform: {creature.transform()}"
-                f"attack: {creature.attack()}"
-                f"revert: {creature.revert()}"
+                f"tranform: {creature.transform()}\n"
+                f"attack: {creature.attack()}\n"
+                f"revert: {creature.revert()}\n"
                 )
 
 
@@ -53,4 +51,10 @@ class DefensiveStrategy(BattleStrategy):
         return (isinstance(creature, HealCapability))
 
     def act(self, creature: Creature) -> None:
-        
+        if not self.is_valid(creature):
+            raise StrategyError("Defensive Error!!!")
+        else:
+            print(
+                f"heal: {creature.heal()}\n"
+                f"attack: {creature.attack()}"
+                )
