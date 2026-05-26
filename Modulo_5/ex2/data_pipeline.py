@@ -241,5 +241,6 @@ def main() -> None:
     print("\n== DataStream statistics ==\n")
     dt.print_processors_stats()
 
+
 if __name__ == "__main__":
     main()

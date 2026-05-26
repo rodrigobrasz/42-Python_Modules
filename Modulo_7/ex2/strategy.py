@@ -5,7 +5,7 @@ from ex0.creature import Creature
 from ex1 import HealCapability, TransformCapability
 
 
-class StrategyError(Exception):
+class IvalidCreature(Exception):
     pass
 
 
@@ -26,7 +26,7 @@ class NormalStrategy(BattleStrategy):
 
     def act(self, creature: Creature) -> str:
         if not self.is_valid(creature):
-            raise StrategyError("Normal Error!!!!!")
+            raise IvalidCreature("Ivalid Creature")
         else:
             return (creature.attack())
 
@@ -37,7 +37,7 @@ class AggressiveStrategy(BattleStrategy):
 
     def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
-            raise StrategyError("Agressive Error!!!!")
+            raise IvalidCreature("Ivalid Creature")
         else:
             print(
                 f"tranform: {creature.transform()}\n"
@@ -52,7 +52,7 @@ class DefensiveStrategy(BattleStrategy):
 
     def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
-            raise StrategyError("Defensive Error!!!")
+            raise IvalidCreature("Ivalid Creature")
         else:
             print(
                 f"heal: {creature.heal()}\n"

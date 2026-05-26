@@ -38,6 +38,7 @@ def test_temperature():
 
     print()
 
+#   dmalsmdaslkdkmlas
     print(f"Input data is ({input_data_2})")
     try:
         result_2 = input_temperature(input_data_2)
