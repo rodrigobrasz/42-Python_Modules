@@ -18,15 +18,16 @@ class DataProcessor(ABC):
     def ingest(self, data: Any) -> None:
         pass
 
+    def _send(self, item: str) -> None:
+        self._stack.append(item)
+        self._count += 1
+
     def output(self) -> tuple[int, str]:
-        if len(self._stack) == 0:
-            print("No data to output")
-            return
         if not self._stack:
             raise IndexError("No data to output")
         return self._stack.pop(0)
 
-    def stats(self) -> tuple[str, int]:
+    def stats(self) -> dict[str, int]:
         return {
             "processed": self._count,
             "pending": len(self._stack)
@@ -73,7 +74,7 @@ class TextProcessor(DataProcessor):
             raise ValueError("Improper text data")
 
         if isinstance(data, str):
-            self._stack.append(data)
+            self._send(data)
         else:
             for item in data:
                 self._send(item)

@@ -23,7 +23,7 @@ def power_validator(min_power: int) -> Callable:
         def wrapper(*args, **kwargs) -> Callable:
             power = args[-1]
             if power < min_power:
-                return " Insuficient power"
+                return "Insuficient power"
             return func(*args, **kwargs)
         return wrapper
     return decorator
@@ -35,12 +35,12 @@ def retry_spell(max_attempts: int) -> Callable:
         def wrapper(*args, **kwargs):
             for attempt in range(1, max_attempts + 1):
                 try:
-                    return (*args, **kwargs)
+                    return retry_spell(*args, **kwargs)
                 except Exception:
                     if attempt < max_attempts:
                         print(
                             "Spell failed, retrying... "
-                            f"(attempt {attempt} {max_attempts})"
+                            f"(attempt {attempt} / {max_attempts})"
                         )
             return f"Spell casting failed after {max_attempts} attempts"
         return wrapper
@@ -63,14 +63,24 @@ def fireball():
     time.sleep(0.101)
     return "Fireball cast!"
 
+@retry_spell(3)
+def test_retry() -> None:
+    raise ValueError
+
 
 def main() -> None:
+    mage = MageGuild()
     print("============================")
     print("Testing spell timer...")
     result = fireball()
     print("Result:", result)
     print("============================")
-
+    print("Testing Retry...")
+    print(retry_spell(3)(mage.cast_spell)('Fireball', 5))
+    print((mage.cast_spell)('Fireball', 15))
+    print("============================")
+    print(mage.cast_spell("Thunder", 15))
+    print(mage.cast_spell("fireball", 5))
 
 if __name__ == "__main__":
     main()
