@@ -12,11 +12,11 @@ class IvalidCreature(Exception):
 class BattleStrategy(ABC):
 
     @abstractmethod
-    def is_valid(self) -> bool:
+    def is_valid(self, creature: Creature) -> bool:
         pass
 
     @abstractmethod
-    def act(self) -> None:
+    def act(self, creature: Creature) -> None:
         pass
 
 
@@ -24,11 +24,10 @@ class NormalStrategy(BattleStrategy):
     def is_valid(self, creature: Creature) -> bool:
         return (isinstance(creature, Creature))
 
-    def act(self, creature: Creature) -> str:
+    def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
             raise IvalidCreature("Ivalid Creature")
-        else:
-            return (creature.attack())
+        creature.attack()
 
 
 class AggressiveStrategy(BattleStrategy):
