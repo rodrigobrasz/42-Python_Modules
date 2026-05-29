@@ -31,9 +31,6 @@ def create_inventory() -> dict:
 
 def main() -> None:
     loot = create_inventory()
-    if not loot:
-        print("The game has started so your inventory is empty ;)")
-        return
     total_values = sum(loot.values())
     total_keys = len(sys.argv) - 1
     abundant_item = None
@@ -46,7 +43,10 @@ def main() -> None:
 
 #   Percentage:
     for item in loot.keys():
-        percent = (loot[item] / total_values) * 100
+        try:
+            percent = (loot[item] / total_values) * 100
+        except ZeroDivisionError as e:
+            return (e)
         print(f"Item {item} represents {round(percent, 1)}%")
 
 #   Max/Min
@@ -60,8 +60,7 @@ def main() -> None:
     print(f"Item most abundat: {abundant_item} with quantity: {max_value}")
     print(f"Item Least abundant: {least_abundant} with quantity: {min_value}")
 
-#   Update
-    loot.update({"Zenith": 1})
+    loot.update({"Zenith": 0})
     print(f"Updated inventory: {loot}")
 
 

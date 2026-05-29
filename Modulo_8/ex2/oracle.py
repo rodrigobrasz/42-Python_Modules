@@ -15,7 +15,7 @@ except ImportError:
 def get_env(env: str) -> str | None:
     res = os.getenv(env)
     if res is None:
-        return
+        return "Missing Env"
     return res.strip()
 
 

@@ -33,7 +33,8 @@ def consume_event(events: list[tuple[str, str]]
                   ) -> Generator[tuple[str, str], None, None]:
     while len(events) > 0:
         index = random.randrange(len(events))
-        
+        yield events.pop(index)
+
 
 def main() -> None:
     print("=== Game Data Stream Processor ===")

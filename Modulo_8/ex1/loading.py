@@ -4,12 +4,12 @@ import sys
 from importlib import import_module
 
 
-def check_libraries(name: str) -> bool:
+def check_libraries(name: str) -> str | None:
     try:
         module = import_module(name)
-        return f"{module.__version__}"
+        return f"{module, "__version__", "unknown"}"
     except ImportError:
-        return False
+        return None
 
 
 def install_intruction() -> None:
@@ -35,10 +35,8 @@ def main() -> None:
     print("Checking dependencies:")
     for lib, value in libraries_to_check.items():
         version = check_libraries(lib)
-        if version is not False:
-            print(
-                f"[OK] {lib} ({check_libraries(lib)}) - {value} "
-                  )
+        if version is not None:
+            print(f"[OK] {lib} ({version}) - {value}")
         else:
             missing.append(lib)
 

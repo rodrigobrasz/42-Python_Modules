@@ -19,8 +19,9 @@ class DataProcessor(ABC):
         pass
 
     def _send(self, item: str) -> None:
-        self._stack.append(item)
+        self._stack.append((self._rank, item))
         self._count += 1
+        self._rank += 1
 
     def output(self) -> tuple[int, str]:
         if not self._stack:
@@ -105,7 +106,7 @@ class LogProcessor(DataProcessor):
 
 
 class DataStream():
-    def __init__(self):
+    def __init__(self) -> None:
         self.processors: list[DataProcessor] = []
 
     def register_processor(self, proc: DataProcessor) -> None:

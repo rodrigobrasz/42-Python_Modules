@@ -82,5 +82,6 @@ def main() -> None:
     print(mage.cast_spell("Thunder", 15))
     print(mage.cast_spell("fireball", 5))
 
+
 if __name__ == "__main__":
     main()

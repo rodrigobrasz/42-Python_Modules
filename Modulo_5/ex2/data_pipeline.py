@@ -44,9 +44,6 @@ class DataProcessor(ABC):
         pass
 
     def output(self) -> tuple[int, str]:
-        if len(self._stack) == 0:
-            print("No data to output")
-            return
         if not self._stack:
             raise IndexError("No data to output")
         return self._stack.pop(0)
@@ -55,7 +52,7 @@ class DataProcessor(ABC):
         self._stack.append((self._count, element))
         self._count += 1
 
-    def stats(self) -> tuple[str, int]:
+    def stats(self) -> dict[str, int]:
         return {
             "processed": self._count,
             "pending": len(self._stack)
@@ -133,7 +130,7 @@ class LogProcessor(DataProcessor):
 
 
 class DataStream():
-    def __init__(self):
+    def __init__(self) -> None:
         self.processors: list[DataProcessor] = []
 
     def register_processor(self, proc: DataProcessor) -> None:
@@ -225,7 +222,7 @@ def main() -> None:
             21, ['I love AI', 'LLMs are wonderful', 'Stay healthy'],
             [{'log_level': 'ERROR', 'log_message': '500 server crash'},
                 {'log_level': 'NOTICE', 'log_message':
-                  'Certificate expires in 10 days'}],
+                 'Certificate expires in 10 days'}],
             [32, 42, 64, 84, 128, 168], 'World hello'
                 ]
     print(f"Send another batch of data: {batch_2}")
