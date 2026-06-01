@@ -44,7 +44,7 @@ def main() -> None:
         players_set.append(current_set)
         print(f"Player {name}: {current_set}")
 
-    all_distinct_achievements = set()
+    all_distinct_achievements: set = set()
     for check_dist in players_set:
         all_distinct_achievements = all_distinct_achievements.union(check_dist)
     print(f"\nAll distinct achievements: {all_distinct_achievements}")
@@ -57,7 +57,7 @@ def main() -> None:
     i = 0
     for name in players:
         first_set = players_set[i]
-        others = set()
+        others: set = set()
         j = 0
         for new in players_set:
             if i != j:

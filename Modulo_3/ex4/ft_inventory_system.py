@@ -7,7 +7,7 @@ args = sys.argv[1:]
 
 def create_inventory() -> dict:
 
-    main_inventory = {}
+    main_inventory: dict = {}
 
     if len(args) == 0:
         return main_inventory
@@ -41,15 +41,13 @@ def main() -> None:
     print(f"Got Iventory{loot}")
     print(f"Total quantity of the {total_keys} items:{total_values}")
 
-#   Percentage:
     for item in loot.keys():
         try:
             percent = (loot[item] / total_values) * 100
         except ZeroDivisionError as e:
-            return (e)
+            print(e)
         print(f"Item {item} represents {round(percent, 1)}%")
 
-#   Max/Min
     for item, qty in loot.items():
         if max_value is None or qty > max_value:
             max_value = qty

@@ -45,8 +45,7 @@ def main() -> None:
     distance_sets = math.sqrt((pos2[0] - pos1[0])**2 + (pos2[1] - pos1[1])**2
                               + (pos2[2] - pos1[2])**2)
     distance_sets = round(distance_sets, 4)
-    print(f"{distance_sets}")
-    print(f"First set: X = {pos2[0]}, Y = {pos2[1]}, Z = {pos2[2]}")
+    print(f"Distance between the 2 sets of coordinates: {distance_sets}")
 
 
 if __name__ == "__main__":
