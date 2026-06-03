@@ -10,6 +10,9 @@ class DataProcessor(ABC):
         self._count: int = 0
         self._rank: int = 0
 
+    def peek_all(self) -> list[tuple[int, str]]:
+        return list(self._stack)   # cópia
+
     @abstractmethod
     def validate(self, data: Any) -> bool:
         pass
@@ -184,6 +187,9 @@ def main() -> None:
         "\nConsume some elements from the data processors:"
         " Numeric 3, Text 2, Log 1"
         )
+    print("=====\n\n\n")
+    print("NUM stack:", num_proc.peek_all())
+
     for _ in range(3):
         num_proc.output()
     for _ in range(2):
