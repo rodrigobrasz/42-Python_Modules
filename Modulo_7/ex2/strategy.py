@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 from ex0.creature import Creature
-from ex1 import HealCapability, TransformCapability
+from ex1.capabilites import HealCapability, TransformCapability
 
 
 class IvalidCreature(Exception):
