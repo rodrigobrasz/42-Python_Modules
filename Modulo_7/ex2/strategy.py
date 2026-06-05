@@ -33,7 +33,6 @@ class NormalStrategy(BattleStrategy):
 
 class AggressiveStrategy(BattleStrategy):
     def is_valid(self, creature: Creature) -> bool:
-        # garante que é Creature e também TransformCapability
         return isinstance(creature, Creature) and\
                isinstance(creature, TransformCapability)
 

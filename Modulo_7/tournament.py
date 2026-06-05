@@ -2,7 +2,7 @@
 
 from typing import List, Tuple
 
-from ex0 import FlameFactory, WaterFactory, CreateFactory
+from ex0 import FlameFactory, AquaFactory, CreateFactory
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
 
 from ex2.strategy import (
@@ -75,7 +75,7 @@ def main() -> None:
 
     print("Tournament 2 (multiple)")
     t2: List[Opponent] = [
-        (WaterFactory(), normal),
+        (AquaFactory(), normal),
         (HealingCreatureFactory(), defensive),
         (TransformCreatureFactory(), aggressive),
     ]
@@ -85,6 +85,6 @@ def main() -> None:
     except IvalidCreature as e:
         print(e)
 
-
+    
 if __name__ == "__main__":
     main()

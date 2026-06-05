@@ -22,7 +22,7 @@ class FlameFactory(CreateFactory):
         return Pyrodon()
 
 
-class WaterFactory(CreateFactory):
+class AquaFactory(CreateFactory):
     def create_base(self) -> Aquabub:
         return Aquabub()
 
