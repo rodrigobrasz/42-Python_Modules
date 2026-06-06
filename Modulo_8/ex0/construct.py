@@ -9,8 +9,9 @@ def venv_matrix() -> bool:
     return sys.prefix != sys.base_prefix
 
 
-def venv_name() -> str:
-    return os.path.basename(os.getenv("VIRTUAL_ENV"))
+def venv_name() -> str | None:
+    venv_path = os.getenv("VIRTUAL_ENV")
+    return os.path.basename(venv_path) if venv_path else None
 
 
 def main() -> None:

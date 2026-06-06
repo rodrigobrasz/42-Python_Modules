@@ -7,7 +7,7 @@ from importlib import import_module
 def check_libraries(name: str) -> str | None:
     try:
         module = import_module(name)
-        return f"{module, "__version__", "unknown"}"
+        return (f"{module, '__version__', 'unknown'}")
     except ImportError:
         return None
 
