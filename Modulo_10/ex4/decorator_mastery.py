@@ -63,6 +63,7 @@ def fireball():
     time.sleep(0.101)
     return "Fireball cast!"
 
+
 @retry_spell(3)
 def test_retry() -> None:
     raise ValueError
