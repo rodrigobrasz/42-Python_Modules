@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Callable
+from collections.abc import Callable
 
 
 def fireball(target: str, power: int) -> str:
@@ -12,19 +12,25 @@ def heal(target: str, power: int) -> str:
 
 
 # Isso é um caso de High Order Func:
-def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
-    def combined_spells(target: str, power: int):
+def spell_combiner(
+    spell1: Callable[[str, int], str],
+    spell2: Callable[[str, int], str]
+) -> Callable[[str, int], tuple[str, str]]:
+    def combined_spells(target: str, power: int) -> tuple[str, str]:
         return (spell1(target, power), spell2(target, power))
     return combined_spells
 
 
-def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
+def power_amplifier(base_spell: Callable[[str, int], str], multiplier: int)\
+     -> Callable[[str, int], str]:
     def amplifier(target: str, power: int):
         return base_spell(target, power * multiplier)
     return amplifier
 
 
-def conditional_caster(condition: Callable, spell: Callable) -> Callable:
+def conditional_caster(condition: Callable[[str, int], str],
+                       spell: Callable[[str, int], str]) \
+                       -> Callable[[str, int], str]:
     def conditional(target: str, power: int):
         if condition(target, power):
             return spell(target, power)
@@ -33,7 +39,8 @@ def conditional_caster(condition: Callable, spell: Callable) -> Callable:
     return conditional
 
 
-def spell_sequence(spells: list[Callable]) -> Callable:
+def spell_sequence(spells: list[Callable[[str, int], str]])\
+                   -> Callable[[str, int], str]:
     def sequence(target: str, power: int):
         return [s(target, power) for s in spells]
     return sequence

@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 
 
-from typing import Callable
+from collections.abc import Callable
 
 
-def mage_counter() -> Callable:
+def mage_counter() -> Callable[[], int]:
     count = 0
 
-    def func_calls() -> Callable[[], int]:
+    def increment() -> int:
         nonlocal count
         count += 1
         return count
-    return func_calls
+    return increment
 
 
-def spell_accumulator(initial_power: int) -> Callable:
+def spell_accumulator(initial_power: int) -> Callable[[int], int]:
     start = initial_power
 
-    def add_initial(amount: int):
+    def add_initial(amount: int) -> int:
         nonlocal start
         start += amount
         return start
@@ -33,10 +33,10 @@ def enchantment_factory(enchantment_type: str) -> Callable:
 def memory_vault() -> dict[str, Callable]:
     mem = {}
 
-    def store(key, value):
+    def store(key: str, value: int) -> None:
         mem[key] = value
 
-    def recall(key, value):
+    def recall(key: str) -> int | str:
         return mem.get(key, "Memory not found")
     return {'store': store, 'recall': recall}
 
@@ -69,8 +69,11 @@ def main() -> None:
     print("=================================")
     print("Testing memory vault...")
     vault = memory_vault()
-    vault["store"]("secret", 42)
-    print(vault)
+    vault['store']("secret", 42)
+    print(f"Store 'secret': {vault['recall']('secret')}")
+    print(f"Recall 'secret': {vault['recall']('secret')}")
+    print(f"Recall 'unknown': {vault['recall']('missing')}")
+    print("=================================")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from typing import Callable, Any
+from collections.abc import Callable
+from typing import Any
 from functools import reduce, partial, lru_cache, singledispatch
 import operator
 

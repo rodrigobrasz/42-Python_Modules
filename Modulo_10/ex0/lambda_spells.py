@@ -26,23 +26,33 @@ def mage_stats(mages: list[dict]) -> dict:
 
 def main() -> None:
     artifacts = [
-        {"name": "Fire Staff", "power": 999},
-        {"name": "Ancient Tome", "power": 777},
-        {"name": "Crystal Orb", "power": 888}
+        {"name": "Fire Staff", "power": 9},
+        {"name": "Ancient Tome", "power": 7},
+        {"name": "Crystal Orb", "power": 8},
+        {"name": "Kamehameha", "power": 10},
+        {"name": "GenkiDama", "power": 6},
     ]
     spells = ["fireball", "heal", "shield"]
 
+    print("===============================================")
     print("Testing artifact sorter...")
     sorted_artifact = artifact_sorter(artifacts)
     first = sorted_artifact[0]
     second = sorted_artifact[1]
     print(
-        f"{first['name']} ({first['power']} power) comes"
+        f"{first['name']} ({first['power']} power) comes "
         f"before {second['name']} ({second['power']} power)"
         )
-
+    print("===============================================")
+    print("Testing Filter:")
+    filter_power = power_filter(artifacts, 9)
+    for i in filter_power:
+        print(f"Filted Power: {i['name']} - {i['power']}")
+    print("===============================================")
+    print("Testing Tranformed_Spell")
     transformed = spell_transformer(spells)
     print(" ".join(transformed))
+    print("===============================================")
 
 
 if __name__ == "__main__":
