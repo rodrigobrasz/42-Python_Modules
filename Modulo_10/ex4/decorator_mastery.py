@@ -3,11 +3,12 @@
 from collections.abc import Callable
 from functools import wraps
 import time
+from typing import Any
 
 
 def spell_timer(func: Callable) -> Callable:
     @wraps(func)
-    def wrapper(*args, **kwargs) -> Callable:
+    def wrapper(*args, **kwargs) -> Any:
         print(f"Casting before the function: {func.__name__}")
         start = time.time()
         result = func(*args, **kwargs)
@@ -20,7 +21,7 @@ def spell_timer(func: Callable) -> Callable:
 def power_validator(min_power: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> Callable:
+        def wrapper(*args, **kwargs) -> Any:
             power = args[-1]
             if power < min_power:
                 return "Insuficient power"
@@ -32,16 +33,15 @@ def power_validator(min_power: int) -> Callable:
 def retry_spell(max_attempts: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
-            for attempt in range(1, max_attempts + 1):
+        def wrapper(*args, **kwargs) -> Any:
+            attempt = 0
+            while attempt <= max_attempts:
                 try:
-                    return retry_spell(*args, **kwargs)
+                    return func(*args, **kwargs)
                 except Exception:
-                    if attempt < max_attempts:
-                        print(
-                            "Spell failed, retrying... "
-                            f"(attempt {attempt} / {max_attempts})"
-                        )
+                    print(f"Spell failed (attempt {attempt}/{max_attempts})")
+                    attempt += 1
+
             return f"Spell casting failed after {max_attempts} attempts"
         return wrapper
     return decorator
@@ -61,7 +61,7 @@ class MageGuild:
 @spell_timer
 def fireball():
     time.sleep(0.101)
-    return "Fireball cast!"
+    return "Result : Fireball cast!"
 
 
 @retry_spell(3)
@@ -77,11 +77,15 @@ def main() -> None:
     print("Result:", result)
     print("============================")
     print("Testing Retry...")
-    print(retry_spell(3)(mage.cast_spell)('Fireball', 5))
-    print((mage.cast_spell)('Fireball', 15))
+    print(test_retry())
+    print("Waaaaaaagh spelled !")
     print("============================")
+    print("Testing MageGuild")
     print(mage.cast_spell("Thunder", 15))
     print(mage.cast_spell("fireball", 5))
+    print(mage.validate_mage_name("Draco"))
+    print(mage.validate_mage_name("h"))
+    print("============================")
 
 
 if __name__ == "__main__":

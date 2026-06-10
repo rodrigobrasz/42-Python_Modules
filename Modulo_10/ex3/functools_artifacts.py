@@ -73,12 +73,12 @@ def spell_dispatcher() -> Callable[[Any], str]:
 def main() -> None:
     print("===============================")
     print("Testing spell reducer...")
-    spells = [10, 20, 60]
-    print(f"List: {spells}")
-    print("Sum:", spell_reducer(spells, "add"))
-    print("Product:", spell_reducer(spells, "multply"))
-    print("Max:", spell_reducer(spells, "max"))
-    print("Min:", spell_reducer(spells, "min"))
+    spells_values = [10, 20, 60]
+    print(f"List: {spells_values}")
+    print("Sum:", spell_reducer(spells_values, "add"))
+    print("Product:", spell_reducer(spells_values, "multply"))
+    print("Max:", spell_reducer(spells_values, "max"))
+    print("Min:", spell_reducer(spells_values, "min"))
     print("===============================")
     print("Testing Partial Enchanter...")
     enchanters = partial_enchanter(base_enchantment)
